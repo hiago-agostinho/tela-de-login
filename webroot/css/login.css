@@ -1,0 +1,73 @@
+body {
+    font-size: 1.6rem;
+    background: rgb(179, 179, 255);
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    color: var(--text-color);
+    
+}
+.login {
+    background: rgb(255, 255, 255);
+    padding: 6.4rem 8.8rem;
+    box-shadow: 0.8rem 0.4rem 3.2rem rgba(15, 23, 47, 8.15);
+    border-radius: 1.6rem;
+    display: grid;
+    gap: 3.2rem;
+}
+.login .texto, .login button {
+    margin-top: -15px;
+    margin-bottom: 1.6rem;
+}
+.login input[type="text"] {
+    width: 100%;
+}
+.btn-login {
+    display: flex;
+    justify-content: center;
+    background: rgb(65, 65, 163);
+    width: 100%;
+}
+.btn-login:hover {
+    background:rgb(179, 179, 255);
+}
+.login-link {
+    margin-left: 25px;
+    margin-top: -50px;
+}
+.error-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgb(255, 0, 0);
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    animation: slide-down 0.5s ease;
+}
+
+.sucess-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgb(19, 233, 0);
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    animation: slide-down 0.5s ease;
+}
+
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
