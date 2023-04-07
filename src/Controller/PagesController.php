@@ -20,10 +20,10 @@ class PagesController extends AppController
         \Cake\Http\Response $response = null,
         \Cake\Event\EventManager $eventManager = null,
         \Cake\I18n\I18n $i18n = null,
-        \Cake\Controller\Component\FlashComponent $flash = null // Adicione esta linha
+        \Cake\Controller\Component\FlashComponent $flash = null
     ) {
         parent::__construct($request, $response, $eventManager, $i18n);
-        $this->Flash = $flash; // Adicione esta linha
+        $this->Flash = $flash;
     }
     
 

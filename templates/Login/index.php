@@ -1,4 +1,6 @@
 <?= $this->Form->create(null, ['url' => ['controller' => 'Login', 'action' => 'index']]) ?>
+    <?= $this->Html->css(['login.css']); ?>
+    <?= $this->Html->script(['login.js']); ?>
     <!DOCTYPE html>
     <html lang="pt-br">
         <head>
@@ -6,8 +8,9 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Login</title>
-            <?= $this->Html->css(['login.css']); ?>
-            <?= $this->Html->script(['login.js']); ?>
+            <?php if (@$error) : ?>
+                <p class="error-message"><?= $error ?></p>
+            <?php endif; ?>
         </head>
         <body>
             <div class="login">

@@ -10,24 +10,17 @@ use Cake\Auth\AuthComponent;
 class LoginController extends AppController
 {
     public $uses = ['Pessoa'];
-    // Plugin::load('Cake/Auth');
 
     public function initialize() : void
     {
         $this->loadModel('Pessoas');
         $this->loadComponent('Flash');
-        // $this->loadComponent('Auth');
     }
 
-    public function __construct(
-        \Cake\Http\ServerRequest $request = null,
-        \Cake\Http\Response $response = null,
-        \Cake\Event\EventManager $eventManager = null,
-        \Cake\I18n\I18n $i18n = null,
-        \Cake\Controller\Component\FlashComponent $flash = null // Adicione esta linha
-    ) {
+    public function __construct(\Cake\Http\ServerRequest $request = null, \Cake\Http\Response $response = null, \Cake\Event\EventManager $eventManager = null, \Cake\I18n\I18n $i18n = null, \Cake\Controller\Component\FlashComponent $flash = null)
+    {
         parent::__construct($request, $response, $eventManager, $i18n);
-        $this->Flash = $flash; // Adicione esta linha
+        $this->Flash = $flash;
     }
     
 
@@ -37,38 +30,32 @@ class LoginController extends AppController
         $this->response = $this->response->withDisabledCache();
     }
 
-    public function index() {
-        $pessoa = null;
-    
+    public function index() 
+    {
+        $error = 'Úsuario inválido';
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-    
-            if (isset($data['Pessoa']['email'])) {
-                $pessoa = $this->Pessoas->find('all', ['conditions' => ['email' => $data['Pessoa']['email']]])
-                                        ->first()
-                                        ->toArray();
-    
-                if ($pessoa && $pessoa['senha'] === AuthComponent::password($data['Pessoa']['senha'])) {
-                    $this->Auth->login($pessoa);
-                    $this->redirect($this->Auth->redirectUrl());
+
+            $pessoa = $this->Pessoas->find()
+                                    ->where([
+                                        'email' => $data['email'],
+                                        'senha' => $data['senha']
+                                    ])
+                                    ->first();
+                                    
+            if ($data['email'] == @$pessoa->email) {
+                if ($data['senha'] == @$pessoa->senha) {
+                    return $this->redirect(['controller' => 'Consulta', 'action' => 'index', $pessoa->id, 0]);
                 }
                 else {
-                    echo 'cu';
-                    // $this->Flash->error(__('E-mail ou senha inválidos'));
+                    $error;
                 }
             }
             else {
-                // faça algo aqui se a chave 'Pessoa' não existir no array $data
+                $error;
             }
-
-            return $this->redirect(['controller' => 'Consulta', 'action' => 'index', $pessoa->id]);
-            $this->set(compact('data', 'pessoa'));
+            $this->set(compact('data', 'pessoa', 'error'));
         }
-    
-        // $this->render('index');
-    }
-    
-
-    
+    }    
 
 }
